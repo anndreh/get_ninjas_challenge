@@ -12,7 +12,6 @@ def main(upper_right):
     while True:
         rover_position = input('Rover position: ')
         rover_instructions = input('Rover instructions: ')
-        # import pdb; pdb.set_trace()
         if rover_position == 'q' or rover_instructions == 'q':
             sys.exit()
         rover_plateau.move(rover_position, rover_instructions)
