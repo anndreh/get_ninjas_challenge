@@ -21,12 +21,15 @@ class RoversPlateau():
                         self.current_position['y'] += 1
                     else:
                         self.current_position['y'] -= 1
+                    self.current_position['y'] = (self.check_limits('y',
+                        self.current_position['y']))
                 elif self.current_position['m'] in ('E', 'W'):
                     if self.current_position['m'] == 'E':
                         self.current_position['x'] += 1
                     else:
                         self.current_position['x'] -= 1
-                self.check_limits()
+                    self.current_position['x'] = (self.check_limits('x',
+                        self.current_position['x']))
             else:
                 pos = [i for i,x in enumerate(self.move_options)
                             if x == self.current_position['m']][0] # Gets current direction
@@ -41,13 +44,10 @@ class RoversPlateau():
     def get_current_position(self):
         return self.current_position
 
-    def check_limits(self): # Check if rover touched the upper or bottom line
-        if self.current_position['y'] > self.upper_right['y']:
-            self.current_position['y'] = self.upper_right['y']
-        elif self.current_position['y'] < 0:
-            self.current_position['y'] = 0;
-
-        if self.current_position['x'] > self.upper_right['x']:
-            self.current_position['x'] = self.upper_right['x']
-        elif self.current_position['x'] < 0:
-            self.current_position['x'] = 0
+    def check_limits(self, coordinate, value):
+        # Check if rover touched the upper or bottom line
+        if value > self.upper_right[coordinate]:
+            value = self.upper_right[coordinate]
+        elif value < 0:
+            value = 0;
+        return value
