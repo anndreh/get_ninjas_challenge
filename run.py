@@ -1,19 +1,26 @@
+import sys
 import argparse
-from app.move_rover import RoversPlateau
+from pprint import pprint
+from app.rovers_plateau import RoversPlateau
 
 
 def main(upper_right):
-    RoversPlateau(upper_right)
-    print('Now inform the rover position or press "q" to quit.')
+    rover_plateau = RoversPlateau(upper_right)
+    print('Inform the position and instructions to each rover or "q" to quit.')
     rover_position = ''
-    while rover_position != 'q':
-        rover_position = raw_input('Rover position: ')
-        rover_instructions = raw_input('Rover instructions: ')
-        RoversPlateau.move_rover(rover_position, rover_instructions)
+    rover_instructions = ''
+    while True:
+        rover_position = input('Rover position: ')
+        rover_instructions = input('Rover instructions: ')
+        # import pdb; pdb.set_trace()
+        if rover_position == 'q' or rover_instructions == 'q':
+            sys.exit()
+        rover_plateau.move(rover_position, rover_instructions)
+        pprint(rover_plateau.get_current_position())
 
 if __name__ == '__main__':
     parse = argparse.ArgumentParser(description='Robot rovers movements')
     parse.add_argument('--upper_right',
                        nargs='+', help='Upper right plateau', required=True)
-    upper_right_arg = parse.parse_args()
-    main(upper_right_arg)
+    args = parse.parse_args()
+    main(args.upper_right)
