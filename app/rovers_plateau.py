@@ -38,7 +38,6 @@ class RoversPlateau():
                     else:
                         self.current_position['m'] = self.move_options[pos+1]
 
-    @property
     def get_current_position(self):
         return self.current_position
 
