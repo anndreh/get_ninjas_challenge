@@ -1,13 +1,14 @@
 class RoversPlateau():
     def __init__(self, upper_right):
-        self.upper_right['x'] = upper_right[0]
-        self.upper_right['y'] = upper_right[1]
+        self.upper_right = {'x': int(upper_right[0]),
+                            'y': int(upper_right[1])}
+        self.move_options = ['N', 'E', 'S', 'W']
         self.current_position = {}
 
     def move(self, position, instructions):
         position_list = position.split(' ')
-        self.current_position = {'x': position_list[0],
-                            'y': position_list[1],
+        self.current_position = {'x': int(position_list[0]),
+                            'y': int(position_list[1]),
                             'm': position_list[2]}
         instructions_list = list(instructions)
 
@@ -27,7 +28,19 @@ class RoversPlateau():
                         self.current_position['x'] -= 1
                 self.check_limits()
             else:
-                self.current_position['m'] = i
+                pos = [i for i,x in enumerate(self.move_options)
+                            if x == self.current_position['m']][0] # Gets current direction
+                if i == 'L':
+                    self.current_position['m'] = self.move_options[pos-1]
+                elif i == 'R':
+                    if self.current_position['m'] == 'W': # Reached the end of the list
+                        self.current_position['m'] = self.move_options[0]
+                    else:
+                        self.current_position['m'] = self.move_options[pos+1]
+
+    @property
+    def get_current_position(self):
+        return self.current_position
 
     def check_limits(self): # Check if rover touched the upper or bottom line
         if self.current_position['y'] > self.upper_right['y']:
