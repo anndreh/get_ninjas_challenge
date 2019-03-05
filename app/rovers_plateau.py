@@ -1,15 +1,18 @@
-class RoversPlateau():
+from app.models.position import Position
+
+
+class RoversPlateau:
+    MOVE_OPTIONS = ['N', 'E', 'S', 'W']
+
     def __init__(self, upper_right):
         self.upper_right = {'x': int(upper_right[0]),
                             'y': int(upper_right[1])}
-        self.move_options = ['N', 'E', 'S', 'W']
         self.current_position = {}
 
     def move(self, position, instructions):
         position_list = position.split(' ')
-        self.current_position = {'x': int(position_list[0]),
-                            'y': int(position_list[1]),
-                            'm': position_list[2]}
+        self.current_position = Position(position_list[0],
+            position_list[1], position_list[2]).dict()
         instructions_list = list(instructions)
 
         for i in instructions_list:
@@ -31,15 +34,15 @@ class RoversPlateau():
                     self.current_position['x'] = (self.check_limits('x',
                         self.current_position['x']))
             else:
-                pos = [i for i,x in enumerate(self.move_options)
+                pos = [i for i,x in enumerate(self.MOVE_OPTIONS)
                             if x == self.current_position['m']][0] # Gets current direction
                 if i == 'L':
-                    self.current_position['m'] = self.move_options[pos-1]
+                    self.current_position['m'] = self.MOVE_OPTIONS[pos-1]
                 elif i == 'R':
                     if self.current_position['m'] == 'W': # Reached the end of the list
-                        self.current_position['m'] = self.move_options[0]
+                        self.current_position['m'] = self.MOVE_OPTIONS[0]
                     else:
-                        self.current_position['m'] = self.move_options[pos+1]
+                        self.current_position['m'] = self.MOVE_OPTIONS[pos+1]
 
     def get_current_position(self):
         return self.current_position
