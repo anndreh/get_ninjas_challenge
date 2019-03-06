@@ -19,7 +19,7 @@ class RoversPlateau:
             if i == 'M':
                 move_rover.move()
             else:
-                move_rover.turn()
+                move_rover.turn(i)
 
     def get_current_position(self):
         return "%s %s %s" % (self.current_position.x,

@@ -14,16 +14,15 @@ class MoveRover:
             setattr(self.rover, coordinate, self.rover.dict()[coordinate] - 1)
         self.check_limits(coordinate)
 
-    def turn(self):
+    def turn(self, direction):
         pos = [i for i,x in enumerate(self.MOVE_OPTIONS)
                if x == self.rover.m][0] # Gets current direction
-        if i == 'L':
+        if direction == 'L':
             self.rover.m = self.MOVE_OPTIONS[pos-1]
-        elif i == 'R':
-            if self.rover.m == 'W': # Reached the end of the list
-                self.rover.m = self.MOVE_OPTIONS[0]
-            else:
-                self.rover.m = self.MOVE_OPTIONS[pos+1]
+        elif direction == 'R':
+             # Reached the end of the list
+            self.rover.m = (self.MOVE_OPTIONS[0] if self.rover.m == 'W'
+                else self.MOVE_OPTIONS[pos+1])
 
     def check_limits(self, coordinate):
         # Check if rover touched the upper or bottom line
