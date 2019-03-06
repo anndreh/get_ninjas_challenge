@@ -1,6 +1,5 @@
 import sys
 import argparse
-from pprint import pprint
 from app.rovers_plateau import RoversPlateau
 
 
@@ -15,7 +14,7 @@ def main(upper_right):
         if rover_position == 'q' or rover_instructions == 'q':
             sys.exit()
         rover_plateau.move(rover_position, rover_instructions)
-        pprint(rover_plateau.get_current_position())
+        print(rover_plateau.get_current_position())
 
 if __name__ == '__main__':
     parse = argparse.ArgumentParser(description='Robot rovers movements')
