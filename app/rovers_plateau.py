@@ -3,7 +3,6 @@ from app.services.move_rover import MoveRover
 
 
 class RoversPlateau:
-    MOVE_OPTIONS = ['N', 'E', 'S', 'W']
 
     def __init__(self, upper_right):
         self.upper_right = {'x': int(upper_right[0]),
@@ -13,21 +12,14 @@ class RoversPlateau:
         position_list = position.split(' ')
         self.current_position = Position(position_list[0],
             position_list[1], position_list[2])
+        move_rover = MoveRover(self.current_position, self.upper_right)
         instructions_list = list(instructions)
 
         for i in instructions_list:
             if i == 'M':
-                self.current_position = MoveRover(self.current_position, self.upper_right).move()
+                move_rover.move()
             else:
-                pos = [i for i,x in enumerate(self.MOVE_OPTIONS)
-                       if x == self.current_position.m][0] # Gets current direction
-                if i == 'L':
-                    self.current_position.m = self.MOVE_OPTIONS[pos-1]
-                elif i == 'R':
-                    if self.current_position.m == 'W': # Reached the end of the list
-                        self.current_position.m = self.MOVE_OPTIONS[0]
-                    else:
-                        self.current_position.m = self.MOVE_OPTIONS[pos+1]
+                move_rover.turn()
 
     def get_current_position(self):
         return "%s %s %s" % (self.current_position.x,
