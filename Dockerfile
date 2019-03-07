@@ -6,7 +6,5 @@ RUN apt-get update -y
 RUN apt-get install libpq-dev build-essential -y
 COPY ./app /rover_challenge/app
 COPY run.py /rover_challenge
-RUN mkdir /rover_challenge/reports
 WORKDIR /rover_challenge
-RUN pip3 install -r requirements.txt
 ENTRYPOINT ["python", "run.py"]
