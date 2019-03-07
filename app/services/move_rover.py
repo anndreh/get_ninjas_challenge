@@ -1,4 +1,5 @@
 class MoveRover:
+
     MOVE_OPTIONS = ['N', 'E', 'S', 'W']
 
     def __init__(self, rover, limits):
@@ -6,7 +7,7 @@ class MoveRover:
         self.limits = limits
 
     def move(self):
-        # import pdb; pdb.set_trace()
+        # Determines the coordinate based on the direction
         coordinate = 'x' if self.rover.m in ('E', 'W') else 'y'
         if self.rover.m in ('N', 'E'):
             setattr(self.rover, coordinate, self.rover.dict()[coordinate] + 1)
