@@ -1,10 +1,10 @@
 import sys
-import argparse
 from app.rovers_plateau import RoversPlateau
 
 
-def main(upper_right):
-    rover_plateau = RoversPlateau(upper_right)
+def main():
+    upper_right = input('Inform the limit upper right for the plateau: ')
+    rover_plateau = RoversPlateau(upper_right.split(' '))
     print('Inform the position and instructions to each rover or "q" to quit.')
     rover_position = ''
     rover_instructions = ''
@@ -17,8 +17,4 @@ def main(upper_right):
         print(rover_plateau.get_current_position())
 
 if __name__ == '__main__':
-    parse = argparse.ArgumentParser(description='Robot rovers movements')
-    parse.add_argument('--upper_right',
-                       nargs='+', help='Upper right plateau', required=True)
-    args = parse.parse_args()
-    main(args.upper_right)
+    main()
