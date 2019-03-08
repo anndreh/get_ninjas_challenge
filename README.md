@@ -1,3 +1,14 @@
+# Directions
+
+First create the image using Dockerfile information:
+docker build -t rover_challenge:1.0 .
+
+After that you can run unit tests:
+source run_tests.sh
+
+And start the applicantion using:
+source run_app.sh
+
 # Description
 
 We are assessing a number of things, including the design aspect of your solution, code hygiene, readability and code structure (how easy it is for another programmer to grasp what your code does), reliability and robustness (are errors properly handled?), but mostly we are looking for good coding practices and your object oriented programming skills. We'll also look for automated tests.
