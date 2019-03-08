@@ -5,6 +5,7 @@ ENV TZ America/Sao_Paulo
 RUN apt-get update -y
 RUN apt-get install libpq-dev build-essential -y
 COPY ./app /rover_challenge/app
+COPY ./test /rover_challenge/test
 COPY run.py /rover_challenge
 WORKDIR /rover_challenge
 CMD ["python", "run.py"]
